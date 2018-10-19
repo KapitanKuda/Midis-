@@ -1,0 +1,17 @@
+{% extends 'Guest_Book/base_page.html' %}
+{% block content %}
+  <h1 class="mb5">Reviews:</h1>
+  {% for review in reviews %}
+  <div class="card text-white bg-dark mb-3" style="max-width: 36rem;">
+    <div class="card-header">{{review.date_pub}}</div>
+    <div class="card-body">
+      <h6 class="card-title">{{review.name}}</h6>
+      <p class="card-text">{{review.body}}</p>
+    </div>
+  </div>
+  {% endfor %}
+  <form action="{% url 'reviews_list_and_new'%}" method="post">
+    {% csrf_token %}
+    {{ form.name}}
+  </form>
+{% endblock %}
