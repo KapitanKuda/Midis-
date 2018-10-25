@@ -4,7 +4,7 @@ from PIL import Image
 class Review(models.Model):
     name = models.CharField(max_length=150,db_index=True)
     email = models.EmailField(max_length=254,db_index=True)
-    site = models.CharField(max_length=150,blank=True,null=True)
+    site = models.URLField(max_length=150,blank=True,null=True)
     body = models.TextField(db_index=True)
     date_pub = models.DateTimeField(auto_now_add=True)
     ip = models.CharField(max_length=150,db_index=True)

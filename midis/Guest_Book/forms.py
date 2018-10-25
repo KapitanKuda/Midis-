@@ -25,8 +25,16 @@ class ReviewsForm(forms.ModelForm):
         'body',
         'img']
         labels = {
-            'name': _('Имя'),
+            'name': _('Имя*'),
+            'email': _('Email*'),
             'site': _('Сайт'),
-            'body': _('Сообщение'),
+            'body': _('Сообщение*'),
             'img': _('Изображение')
+        }
+        widgets={
+            'name' : forms.TextInput(attrs={'class':'form-control'}),
+            'email' : forms.EmailInput(attrs={'class':'form-control'}),
+            'site' : forms.URLInput(attrs={'class':'form-control','placeholder':" Пример https://docs.djangoproject.com"}),
+            'body' : forms.Textarea(attrs={'class':'form-control'}),
+            'img': forms.FileInput(attrs={'class':'form-control'})
         }

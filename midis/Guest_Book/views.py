@@ -5,6 +5,8 @@ from .forms import ReviewsForm
 from .models import Review
 from django.core.paginator import Paginator
 from .models import Review
+from django.conf import settings
+
 # Create your views here.
 def message_list(request):
     reviews=Review.objects.all()
@@ -15,7 +17,8 @@ class ReviewCreate(View):
 
         def get(self, request):
             form=ReviewsForm()
-            return render(request,'Guest_Book/new_reviews.html',context={'form':form})
+            key=settings.GOOGLE_RECAPTCHA_PUBLIC_KEY
+            return render(request,'Guest_Book/new_reviews.html',context={'form':form ,'key':key})
 
 
         def post(self,request):
@@ -44,11 +47,12 @@ class ReviewCreate(View):
 class AllInfo(View):
     def get(self,request):
         order_by = request.GET.get('sort','name')
-        if (order_by=='name'):
-            reviews=Review.objects.all().order_by('name')
-        if (order_by=='date_pub'):
-            reviews=Review.objects.all().order_by('-date_pub')
-        paginator=Paginator(reviews,10)
+        direction = request.GET.get('direction','asc')
+        ordering=order_by
+        if direction == 'desc':
+            ordering = '-{}'.format(order_by)
+        reviews=Review.objects.all().order_by(ordering)
+        paginator=Paginator(reviews,3)
         page_number=request.GET.get('page',1)
         page=paginator.get_page(page_number)
         is_paginated=page.has_other_pages()
@@ -65,7 +69,8 @@ class AllInfo(View):
             "is_paginated": is_paginated,
             "next_url": next_url,
             "prev_url": prev_url,
-            'order_by': order_by
+            'order_by': order_by,
+            'direction': direction
         }
         return render(request,'Guest_Book/table.html',context=context)
 

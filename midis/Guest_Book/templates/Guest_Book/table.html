@@ -1,14 +1,19 @@
-{% extends 'Guest_Book/base_page.html' %}
+{% extends 'Guest_Book/base_fullpage.html' %}
 {% load sorl_thumbnail %}
 {% block content %}
-<table class="table">
+<a class="btn btn-primary" href="http://127.0.0.1:8000/Guest_Book/new_reviews" role="button">Страница формы</a>
+
+<table class="table" width="100%">
   <thead>
     <tr>
-  
+
       <th scope="col">
-        <li class="page-item">
-          <a class="page-link" href="?page=1&sort=name">Имя</a>
-        </li>
+          {% if direction == 'desc' %}
+            <a class="page-link" href="?page=1&sort=name&direction=asc">Имя</a>
+          {% endif %}
+          {% if direction == 'asc' %}
+            <a class="page-link" href="?page=1&sort=name&direction=desc">Имя</a>
+          {% endif %}
       </th>
       <th scope="col">Email</th>
       <th scope="col">Сайт</th>
@@ -16,9 +21,14 @@
       <th scope="col">Браузер</th>
       <th scope="col">IP</th>
       <th scope="col">
-        <li class="page-item">
-          <a class="page-link" href="?page=1&sort=date_pub">Дата публикации</a>
-        </li>
+
+        {% if direction == 'desc' %}
+          <a class="page-link" href="?page=1&sort=date_pub&direction=asc">Дата публикации</a>
+        {% endif %}
+        {% if direction == 'asc' %}
+          <a class="page-link" href="?page=1&sort=date_pub&direction=desc">Дата публикации</a>
+        {% endif %}
+
       </th>
       <th scope="col">Изображение</th>
     </tr>
@@ -46,22 +56,24 @@
 <nav aria-label="...">
     <ul class="pagination">
       <li class="page-item {% if not prev_url %} disabled {% endif %}">
-         <a class="page-link" href="{{ prev_url }}&order_by={{ order_by }}" tabindex="-1">Prevous</a>
+         <a class="page-link" href="{{ prev_url }}&sort={{ order_by }}&direction={{direction}}" tabindex="-1">Назад</a>
       </li>
       {% for n in page_object.paginator.page_range %}
 
         {% if page_object.number == n %}
           <li class = "page-item active">
-            <a class="page-link" href="?page={{ n }}&order_by={{ order_by }}">{{n}} <span
+            <a class="page-link" href="?page={{ n }}&sort={{ order_by }}&direction={{direction}}">{{n}} <span
             class="sr-only">{current}</span></a>
           </li>
           {% elif n > page_object.number|add:-3 and n < page_object.number|add:3 %}
             <li class="page-item">
-              <a class="page-link" href="?page={{n}}&order_by={{ order_by }}">{{n}}</a>
+              <a class="page-link" href="?page={{n}}&sort={{ order_by }}&direction={{direction}}">{{n}}</a>
             </li>
             {% endif %}
             {% endfor %}
         <li class="page-item {% if not next_url %} disabled {% endif %}">
-           <a class="page-link" href="{{ next_url }}&order_by={{ order_by }}" tabindex="-1">Next</a>
+           <a class="page-link" href="{{ next_url }}&sort={{ order_by }}&direction={{direction}}" tabindex="-1">Далее</a>
         </li>
+
+
 {% endblock %}

@@ -26,7 +26,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'Guest_Book/media')
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '$u08**pl*@8=@0+c4f(8=ysi=u1dt##_=z9hjwdaux1*^au=#9'
-GOOGLE_RECAPTCHA_SECRET_KEY = '6Ldm63QUAAAAAJ-a_eyFIG6VrR_OxaZNYCBzj4vS'
+GOOGLE_RECAPTCHA_SECRET_KEY = '6Lfs2nYUAAAAAJiQaTbxnNmpJ1YGhxm7VBJA_lLW'
+GOOGLE_RECAPTCHA_PUBLIC_KEY = '6Lfs2nYUAAAAAD5Bek01t0WmYE47aHuQ3r3v-CzF'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -116,7 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-RU'
 
 TIME_ZONE = 'UTC'
 
